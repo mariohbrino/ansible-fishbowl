@@ -1,13 +1,12 @@
 ---
 - name: Provision fishbowl server
   hosts: fishbowl.ubuntu
-  vars:
-    ansible_user: vagrant
-    ansible_python_interpreter: /usr/bin/python3.10
-    fishbowl_url: https://files.fishbowlinventory.com/2024-07-16/Fishbowl-2024.7.sh
-    fishbowl_hash: 5b5bb7b03203deb7ef2cffcb91613e0f48f187294832fabdec77e9ff1d1de18b
+  gather_facts: true
+  vars_files:
+    - vars/ubuntu.yml
+    - vars/fishbowl.yml
   roles:
     - { role: common, tags: common }
     - { role: java, tags: java }
     - { role: mysql, tags: mysql }
-    # - { role: fishbowl, tags: fishbowl } # TODO: need auto unattended answer file.
+    - { role: fishbowl, tags: fishbowl } # TODO: need auto unattended answer file.

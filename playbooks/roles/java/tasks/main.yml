@@ -1,9 +1,4 @@
 ---
-- name: Install java
-  become: true
-  ansible.builtin.apt:
-    pkg:
-      - openjdk-8-jre-headless
-    state: present
-    force: true
-  when: ansible_os_family == "Debian"
+- name: Configure Debian Environment
+  ansible.builtin.include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'

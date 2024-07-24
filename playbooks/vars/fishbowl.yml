@@ -1,0 +1,7 @@
+---
+ubuntu:
+  fishbowl_url: https://files.fishbowlinventory.com/2024-07-16/Fishbowl-2024.7.sh
+  fishbowl_hash: 5b5bb7b03203deb7ef2cffcb91613e0f48f187294832fabdec77e9ff1d1de18b
+windows:
+  fishbowl_url: https://files.fishbowlinventory.com/2024-07-16/Fishbowl-2024.7.exe
+  fishbowl_hash: d2858d7d3a0fddbb00a29c59b4aba07653690f08d211b10d2f25d0d425b89873

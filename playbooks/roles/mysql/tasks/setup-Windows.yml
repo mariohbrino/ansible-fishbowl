@@ -1,0 +1,8 @@
+---
+- name: Download mysql server installer
+  ansible.windows.win_get_url:
+    url: "{{ mysql_url }}"
+    dest: C:\tmp\mysql-installer-web-community-8.0.37.0.msi
+    checksum: "{{ mysql_hash }}"
+    checksum_algorithm: sha256
+    validate_certs: false

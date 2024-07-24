@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
     node.vm.guest = :windows
 
     node.vm.network "public_network",
-      bridge: ENV["NETWORK"]
+      bridge: ENV["BRIDGE"]
 
     # Configure the VM
     node.vm.provider :virtualbox do |v|
@@ -55,14 +55,19 @@ Vagrant.configure("2") do |config|
     end
 
     # Provisioning script to set the default gateway and DNS settings
-    node.vm.provision "ansible" do |ansible|
-      ansible.playbook = "playbooks/vagrant-windows.yml"
+    node.vm.provision "network", type: "ansible" do |ansible|
+      ansible.playbook = "playbooks/vagrant-network.yml"
       ansible.compatibility_mode = "1.8"
       ansible.extra_vars = {
         ip_address: ENV["WINDOWS_IP_ADDRESS"],
         default_gateway: ENV["GATEWAY"],
         prefix_length: ENV["LENGTH"]
       }
+    end
+
+    node.vm.provision "setup", type: "ansible" do |ansible|
+      ansible.playbook = "playbooks/vagrant-windows.yml"
+      ansible.compatibility_mode = "1.8"
     end
   end
 end

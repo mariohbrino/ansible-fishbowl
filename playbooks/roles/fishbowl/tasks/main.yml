@@ -1,26 +1,8 @@
 ---
-- name: Check that fishbowl is installed
-  ansible.builtin.stat:
-    path: /usr/local/Fishbowl
-  register: fishbowl_installed
-  when: ansible_os_family == "Debian"
+- name: Configure Debian Environment
+  ansible.builtin.include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
 
-- name: Display if fishbowl is installed
-  ansible.builtin.debug:
-    var: fishbowl_installed.stat.exists
-  when: ansible_os_family == "Debian"
-
-- name: Download fishbowl inventory installer
-  ansible.builtin.get_url:
-    url: "{{ fishbowl_url }}"
-    dest: /tmp/Fishbowl-2024.7.sh
-    checksum: sha256:{{ fishbowl_hash }}
-    validate_certs: false
-    mode: "0755"
-  when: ansible_os_family == "Debian"
-
-# - name: Install fishbowl inventory
-#   become: true
-#   ansible.builtin.command: /tmp/Fishbowl-2024.7.sh
-#   when: not fishbowl_installed.stat.exists
-#   changed_when: fishbowl_installed.stat.exists
+- name: Configure Windows Environment
+  ansible.builtin.include_tasks: setup-Windows.yml
+  when: ansible_os_family == 'Windows'

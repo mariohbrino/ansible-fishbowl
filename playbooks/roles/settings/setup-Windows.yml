@@ -1,0 +1,5 @@
+---
+- name: Ensure tmp folder exists
+  ansible.windows.win_file:
+    path: C:\tmp
+    state: directory

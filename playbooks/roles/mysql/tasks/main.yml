@@ -1,54 +1,8 @@
 ---
-- name: Install mysql server
-  become: true
-  ansible.builtin.apt:
-    pkg:
-      - mysql-server
-      - python3-pymysql
-    state: present
-    force: true
-    update_cache: true
+- name: Configure Debian Environment
+  ansible.builtin.include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
 
-- name: Add my.cnf configuration
-  become: true
-  ansible.builtin.template:
-    src: files/my.cnf
-    dest: /etc/mysql/conf.d
-    owner: root
-    group: root
-    mode: "0644"
-
-- name: Flush Handlers
-  ansible.builtin.meta: flush_handlers
-
-- name: Removes anonymous user account for localhost
-  become: true
-  become_user: root
-  community.mysql.mysql_user:
-    check_implicit_admin: true
-    name: ''
-    host: localhost
-    state: absent
-    login_unix_socket: /run/mysqld/mysqld.sock
-  when: ansible_os_family == "Debian"
-
-- name: Removes all anonymous user accounts
-  become: true
-  become_user: root
-  community.mysql.mysql_user:
-    check_implicit_admin: true
-    name: ''
-    host_all: true
-    state: absent
-    login_unix_socket: /run/mysqld/mysqld.sock
-  when: ansible_os_family == "Debian"
-
-- name: Remove test database
-  become: true
-  become_user: root
-  community.mysql.mysql_db:
-    check_implicit_admin: true
-    db: test
-    state: absent
-    login_unix_socket: /run/mysqld/mysqld.sock
-  when: ansible_os_family == "Debian"
+- name: Configure Windows Environment
+  ansible.builtin.include_tasks: setup-Windows.yml
+  when: ansible_os_family == 'Windows'

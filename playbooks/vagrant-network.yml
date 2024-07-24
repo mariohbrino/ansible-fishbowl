@@ -1,0 +1,8 @@
+---
+- name: Deploy fishbowl initial settings
+  hosts: fishbowl.windows
+  gather_facts: true
+  vars_files:
+    - vars/windows.yml
+  roles:
+    - { role: network, tags: network }

@@ -1,0 +1,8 @@
+---
+- name: Download fishbowl inventory installer
+  ansible.windows.win_get_url:
+    url: "{{ windows.fishbowl_url }}"
+    dest: C:\tmp\Fishbowl-2024.7.exe
+    checksum: "{{ windows.fishbowl_hash }}"
+    checksum_algorithm: sha256
+    validate_certs: false
