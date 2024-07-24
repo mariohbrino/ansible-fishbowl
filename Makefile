@@ -29,10 +29,10 @@ settings: # Copy default settings.
 up: # Create virtual machine on virtualBox.
 	@vagrant up fishbowl.windows
 
-network: # Provision virtual machine on virtualbox.
+network: # Netowrk provision virtual machine on virtualbox.
 	@vagrant provision fishbowl.windows --provision network
 
-provision: # Provision virtual machine on virtualbox.
+provision: # Setup provision virtual machine on virtualbox.
 	@vagrant provision fishbowl.windows --provision setup
 
 ssh: # SSH into vagrant ubuntu virtual machine.

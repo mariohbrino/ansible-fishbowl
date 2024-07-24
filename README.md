@@ -25,7 +25,8 @@ make build                          # Build fishbowl image.
 make box                            # Create fishbowl virtualbox box.
 make settings                       # Copy default settings.
 make up                             # Create vagrant ubuntu virtual machine for testing.
-make provision                      # Provision vagrant ubuntu virtual machine.
+make network                        # Network provision virtual machine on virtualbox.
+make provision                      # Setup provision vagrant ubuntu virtual machine.
 make ssh                            # SSH into vagrant ubuntu virtual machine.
 make destroy                        # Destroy vagrant ubuntu virtual machine.
 ```
