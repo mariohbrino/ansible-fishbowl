@@ -32,3 +32,6 @@ make destroy                        # Destroy vagrant ubuntu virtual machine.
 ```
 
 > Make sure to adjust `.env` file with the settings for you needs.
+
+> [!NOTE]
+> Ignore error when creating `fishbowl.windows` virtual machine.
