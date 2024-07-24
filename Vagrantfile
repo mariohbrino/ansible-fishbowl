@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
     node.vm.guest = :windows
 
     node.vm.network "public_network",
-      bridge: ['eno1']
+      bridge: ENV["NETWORK"]
 
     # Configure the VM
     node.vm.provider :virtualbox do |v|
