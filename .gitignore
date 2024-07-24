@@ -1,0 +1,8 @@
+.DS_Store
+.env
+.ssh
+.vagrant
+*-virtualbox.box
+/box
+/images
+ansible_vault_pass

@@ -1,0 +1,18 @@
+---
+- name: Download Visual Studio Code
+  ansible.windows.win_get_url:
+    url: https://vscode.download.prss.microsoft.com/dbazure/download/stable/5437499feb04f7a586f677b155b039bc2b3669eb/VSCodeSetup-x64-1.90.2.exe
+    dest: C:\tmp\VSCodeSetup-x64-1.90.2.exe
+    checksum: 69541a80e4968a5f1f1e3ef59979cbd7d9379bee9ecafbe5d2eda1e33bf45bd9
+    checksum_algorithm: sha256
+  when: ansible_os_family == "Windows"
+
+- name: Install Visual Studio Code
+  ansible.windows.win_package:
+    path: C:\tmp\VSCodeSetup-x64-1.90.2.exe
+    product_id: "{EA457B21-F73E-494C-ACAB-524FDE069978}_is1"
+    arguments:
+      - /verysilent
+      - /mergetasks=!runcode
+    state: present
+  when: ansible_os_family == "Windows"

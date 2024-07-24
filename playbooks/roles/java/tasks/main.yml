@@ -1,0 +1,9 @@
+---
+- name: Install java
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - openjdk-8-jre-headless
+    state: present
+    force: true
+  when: ansible_os_family == "Debian"

@@ -1,0 +1,14 @@
+---
+- name: Deploy fishbowl initial settings
+  hosts: fishbowl.windows
+  gather_facts: true
+  vars:
+    ansible_shell_type: cmd
+    ansible_become_method: runas
+    ip_address: 192.168.1.26
+    default_gateway: 192.168.1.1
+    prefix_length: 24
+  roles:
+    - { role: network, tags: network }
+    - { role: settings, tags: settings }
+    - { role: vscode, tags: vscode }

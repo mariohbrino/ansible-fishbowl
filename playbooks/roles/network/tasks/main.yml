@@ -1,0 +1,25 @@
+---
+- name: Update network settings of Ethernet 2
+  ansible.windows.win_shell: |
+    Remove-NetIPAddress -InterfaceAlias "Ethernet 2" -confirm:$false
+
+    New-NetIPAddress -InterfaceAlias "Ethernet 2" -IPAddress "{{ ip_address }}" -PrefixLength "{{ prefix_length }}"
+
+    $routeExists = Get-NetRoute -DestinationPrefix "0.0.0.0/0" -NextHop "{{ default_gateway }}" -ErrorAction SilentlyContinue
+
+    if (-not $routeExists) {
+      New-NetRoute -InterfaceAlias "Ethernet 2" -DestinationPrefix "0.0.0.0/0" -NextHop "{{ default_gateway }}"
+    } else {
+      Set-NetRoute -InterfaceAlias "Ethernet 2" -DestinationPrefix "0.0.0.0/0" -NextHop "{{ default_gateway }}"
+    }
+  args:
+    executable: PowerShell
+  when: ansible_os_family == "Windows"
+
+- name: Set google dns servers for Ethernet 2
+  ansible.windows.win_dns_client:
+    adapter_names: "Ethernet 2"
+    dns_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+  when: ansible_os_family == "Windows"

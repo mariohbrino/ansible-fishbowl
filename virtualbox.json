@@ -1,0 +1,14 @@
+{
+  "name": "brino/fishbowl",
+  "versions": [
+    {
+      "version": "0.0.0",
+      "providers": [
+        {
+          "name": "virtualbox",
+          "url": "fishbowl-virtualbox.box"
+        }
+      ]
+    }
+  ]
+}

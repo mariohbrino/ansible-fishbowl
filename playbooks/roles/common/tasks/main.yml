@@ -1,0 +1,16 @@
+- name: Install common dependencies
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - curl
+      - wget
+      - zip
+      - unzip
+      - net-tools
+      - network-manager
+      - libnss3-tools
+      - jq
+      - xsel
+    state: present
+    force: true
+    update_cache: true

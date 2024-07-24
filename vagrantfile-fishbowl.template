@@ -1,0 +1,33 @@
+
+Vagrant.require_version ">= 1.6.2"
+
+Vagrant.configure("2") do |config|
+  config.vm.define "fishbowl.windows"
+  config.vm.box = "brino/fishbowl"
+  config.vm.hostname = "fishbowl"
+
+  # Configure SSH
+  config.vm.communicator = "ssh"
+  config.ssh.username = "administrator"
+  config.ssh.private_key_path = ".ssh/fishbowl"
+  config.ssh.connect_timeout = 15
+
+  config.vm.guest = :windows
+
+  # Configure Network
+  config.vm.network :forwarded_port,
+    guest: 3389,
+    host: 3389,
+    id: "rdp",
+    auto_correct: true
+
+  # Configure the VM
+  config.vm.provider :virtualbox do |v|
+    v.name = "fishbowl"
+    v.customize ["modifyvm", :id, "--memory", 4096]
+    v.customize ["modifyvm", :id, "--cpus", 4]
+    v.customize ["modifyvm", :id, "--vram", 128]
+    v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+    v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+  end
+end
