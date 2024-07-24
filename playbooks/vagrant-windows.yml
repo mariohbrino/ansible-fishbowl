@@ -4,11 +4,13 @@
   gather_facts: true
   vars_files:
     - vars/windows.yml
-    - vars/fishbowl.yml
     - vars/mysql.yml
+    - vars/tableplus.yml
+    - vars/fishbowl.yml
     - vars/vscode.yml
   roles:
-    - { role: settings, tags: settings }
-    - { role: vscode, tags: vscode }
-    - { role: mysql, tags: mysql }
-    - { role: fishbowl, tags: fishbowl }
+    # - { role: settings, tags: settings }
+    # - { role: mysql, tags: mysql }
+    - { role: tableplus, tags: tableplus }
+    # - { role: fishbowl, tags: fishbowl }
+    # - { role: vscode, tags: vscode }

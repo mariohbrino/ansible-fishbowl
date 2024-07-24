@@ -1,0 +1,4 @@
+---
+- name: Configure Windows Environment
+  ansible.builtin.include_tasks: setup-Windows.yml
+  when: ansible_os_family == 'Windows'
