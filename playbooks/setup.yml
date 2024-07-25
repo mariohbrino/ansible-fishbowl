@@ -1,0 +1,6 @@
+---
+- name: Deploy hashicorp tools
+  hosts: localhost
+  roles:
+    - { role: hashicorp, tags: hashicorp }
+    - { role: packer, tags: packer }

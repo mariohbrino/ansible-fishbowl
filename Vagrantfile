@@ -39,8 +39,15 @@ Vagrant.configure("2") do |config|
 
     node.vm.guest = :windows
 
+    # Configure Network
     node.vm.network "public_network",
       bridge: ENV["BRIDGE"]
+    
+    config.vm.network :forwarded_port,
+      guest: 3389,
+      host: 3389,
+      id: "rdp",
+      auto_correct: true
 
     # Configure the VM
     node.vm.provider :virtualbox do |v|

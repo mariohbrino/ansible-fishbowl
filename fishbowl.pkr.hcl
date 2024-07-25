@@ -72,6 +72,7 @@ source "virtualbox-iso" "windows-2022" {
   floppy_files = [
     "./answer/autounattend.xml",
     "./scripts/configure.ps1",
+    "./scripts/settings.ps1",
     "./.ssh/fishbowl.pub"
   ]
   guest_additions_mode = "disable"

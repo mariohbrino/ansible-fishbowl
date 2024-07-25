@@ -9,8 +9,8 @@
     - vars/fishbowl.yml
     - vars/vscode.yml
   roles:
-    # - { role: settings, tags: settings }
-    # - { role: mysql, tags: mysql }
+    - { role: settings, tags: settings }
+    - { role: mysql, tags: mysql }
     - { role: tableplus, tags: tableplus }
-    # - { role: fishbowl, tags: fishbowl }
-    # - { role: vscode, tags: vscode }
+    - { role: fishbowl, tags: fishbowl }
+    - { role: vscode, tags: vscode }
