@@ -43,3 +43,7 @@ ssh: # SSH into vagrant ubuntu virtual machine.
 
 destroy: # Destroy vagrant ubuntu virtual machine.
 	@vagrant destroy -f fishbowl.windows
+
+validate: # Validate ansible and yaml lint.
+	@ansible-lint
+	@yamllint .
