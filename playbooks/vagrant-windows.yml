@@ -9,7 +9,6 @@
     - vars/vscode.yml
   roles:
     - { role: settings, tags: settings }
-    - { role: chocolatey, tags: chocolatey }
     - { role: mysql, tags: mysql }
     - { role: tableplus, tags: tableplus }
     - { role: fishbowl, tags: fishbowl }

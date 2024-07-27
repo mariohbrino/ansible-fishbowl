@@ -7,12 +7,19 @@ Set-Service -Name ssh-agent -StartupType 'Automatic'
 Start-Service -Name sshd
 Start-Service -Name ssh-agent
 
+# Install Chocolatey
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
 # Fix OpenSSH to not be strict
+$ssh_config_path = 'AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys'
+$ssh_config_path_replace = '#AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys'
+
 $sshd_config = Get-Content "C:\ProgramData\ssh\sshd_config"
 $sshd_config = $sshd_config -replace '#PubkeyAuthentication yes', 'PubkeyAuthentication yes'
 $sshd_config = $sshd_config -replace '#PasswordAuthentication yes', 'PasswordAuthentication no'
 $sshd_config = $sshd_config -replace 'Match Group administrators', '#Match Group administrators'
-$sshd_config = $sshd_config -replace 'AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys', '#AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys'
+$sshd_config = $sshd_config -replace $ssh_config_path, $ssh_config_path_replace
 Set-Content "C:\ProgramData\ssh\sshd_config" $sshd_config
 
 mkdir "c:\Users\administrator\.ssh"
@@ -26,7 +33,8 @@ Restart-Service -Name ssh-agent
 $firewallExists = Get-NetFirewallPortFilter | Where-Object { $_.LocalPort -eq '22' }
 
 if (-not $firewallExists) {
-  New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (TCP-In)' -Enabled True -Direction Inbound -LocalPort 22 -Protocol TCP -Action Allow
+  New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (TCP-In)' \ 
+    -Enabled True -Direction Inbound -LocalPort 22 -Protocol TCP -Action Allow
 }
 
 # Enable Ping
