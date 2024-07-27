@@ -1,7 +1,0 @@
----
-mysql_url: https://cdn.mysql.com/Downloads/MySQL-8.0/mysql-8.0.39-winx64.msi
-mysql_hash: dbdfc7708e8c42fca06b4f39d94e6591760470ce70d58aa7742dff710af89525
-mysql_package: mysql-8.0.39-win-x64.msi
-mysql_visual_studio: https://aka.ms/vs/16/release/vc_redist.x64.exe
-mysql_visual_studio_hash: cee28f29f904524b7f645bcec3dfdfe38f8269b001144cd909f5d9232890d33b
-mysql_visual_studio_package: vc-redist-2019-win-x64.exe

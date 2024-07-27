@@ -50,6 +50,11 @@ source ~/.profile
 
 ## Ansible Windows Tips
 
+List all installed applications with `IdentifyingNumber` (product_id).
+```bash
+Get-WmiObject Win32_Product
+```
+
 When working with installation of applications it will require to know the `product_id` to keep the the playbook idempotente. Then make the installation and get the product_id from regdit or powershell.
 ```bash
 Get-WmiObject Win32_Product | Where Name -eq '<ProductName>' | Format-Table IdentifyingNumber, Name

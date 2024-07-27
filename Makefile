@@ -13,7 +13,7 @@ setup: # Initial setup for host machine.
 download: # Download windows werver 2022 evaluation.
 	@wget https://software-static.download.prss.microsoft.com/sg/download/888969d5-f34g-4e03-ac9d-1f9786c66749/SERVER_EVAL_x64FRE_en-us.iso -O ./images/SERVER_EVAL_x64FRE_en-us.iso
 
-init: # Install Packer plugins.
+init: # Install Packer plugins and Ansible Collections.
 	@packer init .
 
 key: # Create SSH key and save to .ssh folder.

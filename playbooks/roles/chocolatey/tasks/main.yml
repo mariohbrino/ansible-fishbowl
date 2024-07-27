@@ -1,0 +1,33 @@
+---
+- name: Check that Chocolatey is installed
+  ansible.windows.win_stat:
+    path: C:\ProgramData\chocolatey
+  register: choco_check
+
+- name: Display if chocolatey is installed
+  ansible.builtin.debug:
+    var: choco_check.stat.exists
+
+- name: Install chocolatey
+  ansible.windows.win_shell: |
+    Set-ExecutionPolicy Bypass -Scope Process -Force;
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+  args:
+    executable: powershell.exe
+  when: not choco_check.stat.exists
+
+- name: Ensure Chocolatey is on machine PATH
+  ansible.windows.win_path:
+    elements: C:\ProgramData\chocolatey\bin
+    name: PATH
+    scope: user
+    state: present
+
+- name: Refresh environment variables
+  ansible.windows.win_shell: |
+    $env:Path = [System.Environment]::GetEnvironmentVariable('Path', [System.EnvironmentVariableTarget]::User)
+    [Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Process)
+  args:
+    executable: powershell.exe
+  when: not choco_check.stat.exists
